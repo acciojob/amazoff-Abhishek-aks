@@ -8,13 +8,21 @@ import java.util.List;
 @Repository
 public class OrderRepository {
     //      orderId, dpartnerId
-    HashMap<Integer, Integer > hm1 = new HashMap<>();
+    HashMap<String, String > idb = new HashMap<>();
     //      orderId, dpartnerId
-    HashMap<Integer,Order> hm2 = new HashMap<>();
+    HashMap<String,Order> odb = new HashMap<>();
     //      dpartnerId, Oject4details ofdelivery
-    HashMap<Integer, DeliveryPartner> hm3 = new HashMap<>();
+    HashMap<String, DeliveryPartner> pdb = new HashMap<>();
     //      dpartnerId, List of Order
-    HashMap<Integer, List<String>> hm4 = new HashMap<>();
+    HashMap<String, List<String>> dpolist = new HashMap<>();
+
+    // in db add me return nhi hoga
+    public void addOrder(Order order){
+        odb.put(order.getId(),order);
+    }
+    public void addDpartner(DeliveryPartner dpartner){
+        pdb.put(dpartner.getId(), dpartner);
+    }
 
 
 
