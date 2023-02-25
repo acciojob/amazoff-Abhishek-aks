@@ -5,6 +5,7 @@ import org.springframework.stereotype.Repository;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.ListIterator;
 
 @Repository
 public class OrderRepository {
@@ -51,12 +52,12 @@ public class OrderRepository {
     }
 
     public Integer getOrderCountByPartnerId(String partnerId) {
-        int orders = dpolist.getOrDefault(partnerId, new ArrayList<>()).size());
+        int orders = dpolist.getOrDefault(partnerId, new ArrayList<>()).size();
         return orders;
     }
 
     public List<String> getOrdersByPartnerId(String partnerId) {
-        List<String> orders = dpolist.getOrDefault(partnerId,new Arraylist<>().size());
+        List<String> orders = dpolist.getOrDefault(partnerId,new ArrayList<>());
         return orders;
     }
 
@@ -69,18 +70,87 @@ public class OrderRepository {
     }
 
     public Integer getCountOfUnassignedOrders() {
-        int countOrders;
+        int countOrders = orderdb.size()-idb.size();
+        return countOrders;
     }
 
     public Integer getOrdersLeftAfterGivenTimeByPartnerId(String time, String partnerId) {
+        int ordercount =0;
+        List<String> l = dpolist.get(partnerId);
+
+        String [] sep = time.split(":");
+        int deliveryTime = (Integer.parseInt(sep[0])*60)+ (Integer.parseInt(sep[1]));
+
+        for (String s : l) {
+            Order order = orderdb.get(s);
+            if (order.getDeliveryTime() > deliveryTime) {
+                ordercount++;
+            }
+        }
+        return ordercount;
     }
 
     public String getLastDeliveryTimeByPartnerId(String partnerId) {
+
+        //return in HH:MM format
+        String str="00:00";
+        int max=0;
+
+        List<String>list=pairDB.getOrDefault(partnerId,new ArrayList<>());
+        if(list.size()==0)return str;
+        for(String s: list){
+            Order currentOrder=orderDB.get(s);
+            max=Math.max(max,currentOrder.getDeliveryTime());
+        }
+        //convert int to string (140-> 02:20)
+        int hr=max/60;
+        int min=max%60;
+
+        if(hr<10){
+            str="0"+hr+":";
+        }else{
+            str=hr+":";
+        }
+
+        if(min<10){
+            str+="0"+min;
+        }
+        else{
+            str+=min;
+        }
+        return str;
+
     }
 
-    public void deletePartnerId(String partnerId) {
+    public String deletePartnerId(String partnerId) {
+        partnerdb.remove(partnerId);
+
+        List<String> list = dpolist.getOrDefault(partnerId, new ArrayList<>());
+        ListIterator<String> itr = list.listIterator();
+        while (itr.hasNext()) {
+            String s = itr.next();
+            idb.remove(s);
+        }
+        dpolist.remove(partnerId);
+        return "Deleted";
     }
 
-    public void deleteOrderById(String orderId) {
+    public String deleteOrderById(String orderId) {
+        //Delete an order and the corresponding partner should be unassigned
+        orderdb.remove(orderId);
+        String partnerId = idb.get(orderId);
+        dpolist.remove(orderId);
+        List<String> list = dpolist.get(partnerId);
+
+        ListIterator<String> itr = list.listIterator();
+        while (itr.hasNext()) {
+            String s = itr.next();
+            if (s.equals(orderId)) {
+                itr.remove();
+            }
+        }
+        dpolist.put(partnerId, list);
+
+        return "Deleted";
     }
 }
