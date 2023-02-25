@@ -9,32 +9,39 @@ import java.util.List;
 public class OrderService {
 
     @Autowired
-    OrderRepository Orepo;
+    OrderRepository Orderepo;
 
 
     public void addOrder(Order order) {
+        Orderepo.addOrder(order);
     }
 
     public void addPartner(String partnerId) {
+        Orderepo.addPartner(partnerId);
     }
 
     public void addOrderPartnerPair(String orderId, String partnerId) {
+        Orderepo.addOrderPartnerPair(orderId,partnerId);
     }
 
-
     public Order getOrderById(String orderId) {
+        return Orderepo.getOrderByID(orderId);
     }
 
     public DeliveryPartner getPartnerById(String partnerId) {
+        return Orderepo.getPartnerById(partnerId);
     }
 
     public Integer getOrderCountByPartnerId(String partnerId) {
+        return getOrderCountByPartnerId(partnerId);
     }
 
     public List<String> getOrdersByPartnerId(String partnerId) {
+        return getOrdersByPartnerId(partnerId);
     }
 
     public List<String> getAllOrders(List<String> orders) {
+
     }
 
     public Integer getCountOfUnassignedOrders() {
