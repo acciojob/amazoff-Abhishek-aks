@@ -9,6 +9,9 @@ public class Order {
 
         // The deliveryTime has to converted from string to int and then stored in the attribute
         //deliveryTime  = HH*60 + MM
+        String [] sep = deliveryTime.split(":");
+        int time = (Integer.parseInt(sep[0])*60)+ (Integer.parseInt(sep[1]);
+        this.deliveryTime = time;
     }
 
     public String getId() {
