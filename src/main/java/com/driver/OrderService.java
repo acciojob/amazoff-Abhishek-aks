@@ -33,29 +33,34 @@ public class OrderService {
     }
 
     public Integer getOrderCountByPartnerId(String partnerId) {
-        return getOrderCountByPartnerId(partnerId);
+        return Orderepo.getOrderCountByPartnerId(partnerId);
     }
 
     public List<String> getOrdersByPartnerId(String partnerId) {
-        return getOrdersByPartnerId(partnerId);
+        return Orderepo.getOrdersByPartnerId(partnerId);
     }
 
     public List<String> getAllOrders(List<String> orders) {
-
+        return Orderepo.getAllOrders(orders);
     }
 
     public Integer getCountOfUnassignedOrders() {
+        return Orderepo.getCountOfUnassignedOrders();
     }
 
     public Integer getOrdersLeftAfterGivenTimeByPartnerId(String time, String partnerId) {
+        return Orderepo.getOrdersLeftAfterGivenTimeByPartnerId(time, partnerId);
     }
 
     public String getLastDeliveryTimeByPartnerId(String partnerId) {
+        return Orderepo.getLastDeliveryTimeByPartnerId(partnerId);
     }
 
     public void deletePartnerId(String partnerId) {
+        Orderepo.deletePartnerId(partnerId);
     }
 
     public void deleteOrderById(String orderId) {
+        Orderepo.deleteOrderById(orderId);
     }
 }

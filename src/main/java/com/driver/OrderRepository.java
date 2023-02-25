@@ -31,4 +31,28 @@ public class OrderRepository {
 
     public DeliveryPartner getPartnerById(String partnerId) {
     }
+
+    public Integer getOrderCountByPartnerId(String partnerId) {
+    }
+
+    public List<String> getOrdersByPartnerId(String partnerId) {
+    }
+
+    public List<String> getAllOrders(List<String> orders) {
+    }
+
+    public Integer getCountOfUnassignedOrders() {
+    }
+
+    public Integer getOrdersLeftAfterGivenTimeByPartnerId(String time, String partnerId) {
+    }
+
+    public String getLastDeliveryTimeByPartnerId(String partnerId) {
+    }
+
+    public void deletePartnerId(String partnerId) {
+    }
+
+    public void deleteOrderById(String orderId) {
+    }
 }
