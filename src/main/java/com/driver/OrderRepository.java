@@ -61,9 +61,15 @@ public class OrderRepository {
     }
 
     public List<String> getAllOrders(List<String> orders) {
+        List<String> allorder = new ArrayList<>();
+        for(String sb : orderdb.keySet()){
+            allorder.add(sb);
+        }
+        return allorder;
     }
 
     public Integer getCountOfUnassignedOrders() {
+        int countOrders;
     }
 
     public Integer getOrdersLeftAfterGivenTimeByPartnerId(String time, String partnerId) {
