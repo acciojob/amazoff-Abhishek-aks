@@ -20,3 +20,4 @@ public class Order {
 
     public int getDeliveryTime() {return deliveryTime;}
 }
+// setter left for

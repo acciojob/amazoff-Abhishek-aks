@@ -28,11 +28,15 @@ public class OrderRepository {
     }
 
     public void addOrderPartnerPair(String orderId, String partnerId) {
+       // check order exist or not -order is theere in godown and partner also
+        // check order is assigned or not
+        if (orderdb.containsKey(orderId) && partnerdb.containsKey(partnerId));
         List<String> list = dpolist.getOrDefault(partnerId, new ArrayList<>());
         list.add(orderId);
         dpolist.put(partnerId, list);
         idb.put(orderId, partnerId);
-
+        // increase the no of orders of  partner
+        // DeliveryPartner deliveryPartner =  partnerDb
     }
 
     public Order getOrderByID(String orderId) {
@@ -42,6 +46,8 @@ public class OrderRepository {
             }
         }
         return null;
+        // or 1 liner
+        // return orderdb.get(orderId);
     }
 
     public DeliveryPartner getPartnerById(String partnerId) {
@@ -59,6 +65,7 @@ public class OrderRepository {
     public List<String> getOrdersByPartnerId(String partnerId) {
         List<String> orders = dpolist.getOrDefault(partnerId,new ArrayList<>());
         return orders;
+        // i liner - return dpolist.get(partnerId).size();
     }
 
     public List<String> getAllOrders(List<String> orders) {
@@ -70,18 +77,20 @@ public class OrderRepository {
     }
 
     public Integer getCountOfUnassignedOrders() {
+        // total order - assigned order
         int countOrders = orderdb.size()-idb.size();
         return countOrders;
     }
 
     public Integer getOrdersLeftAfterGivenTimeByPartnerId(String time, String partnerId) {
-        int ordercount =0;
-        List<String> l = dpolist.get(partnerId);
 
         String [] sep = time.split(":");
         int deliveryTime = (Integer.parseInt(sep[0])*60)+ (Integer.parseInt(sep[1]));
 
-        for (String s : l) {
+        int ordercount =0;
+        List<String> l = dpolist.get(partnerId);    // get the orderlist partnerId have
+
+        for (String s : l) {        // iterate over the list
             Order order = orderdb.get(s);
             if (order.getDeliveryTime() > deliveryTime) {
                 ordercount++;
@@ -91,7 +100,6 @@ public class OrderRepository {
     }
 
     public String getLastDeliveryTimeByPartnerId(String partnerId) {
-
         //return in HH:MM format
         String str="00:00";
         int max=0;
@@ -103,9 +111,15 @@ public class OrderRepository {
             max=Math.max(max,currentOrder.getDeliveryTime());
         }
         //convert int to string (140-> 02:20)
+        /* 1 liner -
+        String HH = String.valueOf(max/60);
+        String MM = String.valueOf(max%60);
+
+        */
         int hr=max/60;
         int min=max%60;
 
+        // to check the time is less than
         if(hr<10){
             str="0"+hr+":";
         }else{
@@ -115,8 +129,7 @@ public class OrderRepository {
         if(min<10){
             str+="0"+min;
         }
-        else{
-            str+=min;
+        else{ str+=min;
         }
         return str;
 
@@ -125,8 +138,8 @@ public class OrderRepository {
     public String deletePartnerId(String partnerId) {
         partnerdb.remove(partnerId);
 
-        List<String> list = dpolist.getOrDefault(partnerId, new ArrayList<>());
-        ListIterator<String> itr = list.listIterator();
+        List<String> listofOrder = dpolist.getOrDefault(partnerId, new ArrayList<>());
+        ListIterator<String> itr = listofOrder.listIterator();
         while (itr.hasNext()) {
             String s = itr.next();
             idb.remove(s);
@@ -150,7 +163,7 @@ public class OrderRepository {
             }
         }
         dpolist.put(partnerId, list);
-
         return "Deleted";
     }
 }
+

@@ -49,10 +49,12 @@ public class OrderService {
     }
 
     public Integer getOrdersLeftAfterGivenTimeByPartnerId(String time, String partnerId) {
+        // should convert time here  string to int
         return Orderepo.getOrdersLeftAfterGivenTimeByPartnerId(time, partnerId);
     }
 
     public String getLastDeliveryTimeByPartnerId(String partnerId) {
+        // return int to string which is done in repo only
         return Orderepo.getLastDeliveryTimeByPartnerId(partnerId);
     }
 
