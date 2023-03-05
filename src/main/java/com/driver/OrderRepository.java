@@ -28,7 +28,7 @@ public class OrderRepository {
     }
 
     public void addOrderPartnerPair(String orderId, String partnerId) {
-       // check order exist or not -order is theere in godown and partner also
+        // check order exist or not -order is theere in godown and partner also
         // check order is assigned or not
         if (orderdb.containsKey(orderId) && partnerdb.containsKey(partnerId));
         List<String> list = dpolist.getOrDefault(partnerId, new ArrayList<>());
@@ -166,4 +166,3 @@ public class OrderRepository {
         return "Deleted";
     }
 }
-
