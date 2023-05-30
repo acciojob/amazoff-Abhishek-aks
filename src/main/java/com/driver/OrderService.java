@@ -41,7 +41,7 @@ public class OrderService {
     }
 
     public List<String> getAllOrders(List<String> orders) {
-        return Orderepo.getAllOrders(orders);
+        return Orderepo.getAllOrders();
     }
 
     public Integer getCountOfUnassignedOrders() {
@@ -58,8 +58,8 @@ public class OrderService {
         return Orderepo.getLastDeliveryTimeByPartnerId(partnerId);
     }
 
-    public void deletePartnerId(String partnerId) {
-        Orderepo.deletePartnerId(partnerId);
+    public void deletePartnerById(String partnerId) {
+        Orderepo.deletePartnerById(partnerId);
     }
 
     public void deleteOrderById(String orderId) {

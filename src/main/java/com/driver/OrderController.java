@@ -116,7 +116,7 @@ public class OrderController {
     @DeleteMapping("/delete-partner-by-id/{partnerId}")
     public ResponseEntity<String> deletePartnerById(@PathVariable String partnerId){
         // 12.Delete the partnerId
-        os.deletePartnerId(partnerId);
+        os.deletePartnerById(partnerId);
         //And push all his assigned orders to unassigned orders.
 
 
