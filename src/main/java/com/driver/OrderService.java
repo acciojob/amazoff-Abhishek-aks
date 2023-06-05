@@ -48,14 +48,21 @@ public class OrderService {
         return Orderepo.getCountOfUnassignedOrders();
     }
 
-    public Integer getOrdersLeftAfterGivenTimeByPartnerId(String time, String partnerId) {
+    public Integer getOrdersLeftAfterGivenTimeByPartnerId(String deliveryTime, String partnerId) {
         // should convert time here  string to int
-        return Orderepo.getOrdersLeftAfterGivenTimeByPartnerId(time, partnerId);
+        String time[] = deliveryTime.split(":");
+        int newTime = Integer.parseInt(time[0])*60 + Integer.parseInt(time[1]);
+
+        return Orderepo.getOrdersLeftAfterGivenTimeByPartnerId(newTime, partnerId);
     }
 
     public String getLastDeliveryTimeByPartnerId(String partnerId) {
         // return int to string which is done in repo only
-        return Orderepo.getLastDeliveryTimeByPartnerId(partnerId);
+        int time = Orderepo.getLastDeliveryTimeByPartnerId(partnerId);
+        String HH = String.valueOf(time/60);
+        String MM = String.valueOf(time%60);
+
+        return HH+':'+MM;
     }
 
     public void deletePartnerById(String partnerId) {
