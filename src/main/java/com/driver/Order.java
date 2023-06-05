@@ -1,5 +1,4 @@
 package com.driver;
-
 public class Order {
     private String id;
     private int deliveryTime;
@@ -22,5 +21,3 @@ public class Order {
     public void  setId(String id) { this. id = id;}
     public void  setDeliveryTime(int deliverytime) { this. deliveryTime = deliverytime;}
 }
-
-
